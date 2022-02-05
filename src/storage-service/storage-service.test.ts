@@ -2,26 +2,31 @@ import ls from "./storage-service";
 
 describe("LS should work for single operations ", () => {
 	const singleKey = "singleKey";
-	const createItem = (value) => ls.set(singleKey, value);
+	let testValue;
+
+	const createItem = (value) => {
+		ls.set(singleKey, value);
+		testValue = ls.get(singleKey);
+	};
 
 	it("number", () => {
 		createItem(7);
-		expect(ls.get(singleKey)).toBe(7);
+		expect(testValue).toBe(7);
 	});
 
 	it("string", () => {
 		createItem("random-string");
-		expect(ls.get(singleKey)).toBe("random-string");
+		expect(testValue).toBe("random-string");
 	});
 
 	it("null", () => {
 		createItem(null);
-		expect(ls.get(singleKey)).toBe(null);
+		expect(testValue).toBe(null);
 	});
 
 	it("undefined", () => {
 		createItem(undefined);
-		expect(ls.get(singleKey)).toBe("undefined");
+		expect(testValue).toBe("undefined");
 	});
 
 	it("object", () => {
@@ -29,7 +34,7 @@ describe("LS should work for single operations ", () => {
 			{ name: "John Doe", isDeveloper: true, city: null, info: { age: 16 } },
 		];
 		createItem(MOCK_OBJECT);
-		expect(ls.get(singleKey)).toStrictEqual(MOCK_OBJECT);
+		expect(testValue).toStrictEqual(MOCK_OBJECT);
 	});
 
 	it("remove", () => {
@@ -40,13 +45,12 @@ describe("LS should work for single operations ", () => {
 
 //------------------------------------------------------------------
 describe("LS should work for multiple operations ", () => {
-	const multiKey = "multiKey";
 	const items = { name: "John", family: "Doe", info: { age: 16 } };
-	const keys = Object.keys(items);
+	const multipleKeyToGet = Object.keys(items);
 	ls.setMultiple(items);
 
 	it("getMultiple", () => {
-		const multiResult = ls.getMultiple(keys);
+		const multiResult = ls.getMultiple(multipleKeyToGet);
 		const allResult = ls.getAll();
 
 		expect(multiResult).toStrictEqual(items);
@@ -54,7 +58,7 @@ describe("LS should work for multiple operations ", () => {
 	});
 
 	it("removeMultiple", () => {
-		ls.removeMultiple(keys);
+		ls.removeMultiple(multipleKeyToGet);
 		expect(ls.getAll()).toStrictEqual({});
 	});
 
