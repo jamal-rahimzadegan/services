@@ -1,6 +1,6 @@
 import ss from './session-service';
 
-describe('LS should work for single operations ', () => {
+describe('Session Service should work for single operations ', () => {
   const singleKey = 'singleKey';
   let testValue;
 
@@ -42,7 +42,7 @@ describe('LS should work for single operations ', () => {
 });
 
 //------------------------------------------------------------------
-describe('LS should work for multiple operations ', () => {
+describe('Session Service should work for multiple operations ', () => {
   const items = { name: 'John', family: 'Doe', info: { age: 16 } };
   const multipleKeyToGet = Object.keys(items);
   ss.setMultiple(items);
@@ -69,7 +69,7 @@ describe('LS should work for multiple operations ', () => {
 //------------------------------------------------------------------
 //Todo: Enable this test if you want to test internals and you should make them public
 
-// describe("LS internal should work", () => {
+// describe("Session Service internal should work", () => {
 // 	const { checkPrimitive, checkJSON } = ls;
 //
 // 	it("checkPrimitive", () => {
