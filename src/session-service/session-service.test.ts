@@ -1,12 +1,12 @@
-import ss from './session-service';
+import seSt from './session-service';
 
 describe('Session Service should work for single operations ', () => {
   const singleKey = 'singleKey';
   let testValue;
 
   const createItem = (value) => {
-    ss.set(singleKey, value);
-    testValue = ss.get(singleKey);
+    seSt.set(singleKey, value);
+    testValue = seSt.get(singleKey);
   };
 
   it('number', () => {
@@ -36,8 +36,8 @@ describe('Session Service should work for single operations ', () => {
   });
 
   it('remove', () => {
-    ss.remove(singleKey);
-    expect(ss.get(singleKey)).toStrictEqual(null);
+    seSt.remove(singleKey);
+    expect(seSt.get(singleKey)).toStrictEqual(null);
   });
 });
 
@@ -45,45 +45,23 @@ describe('Session Service should work for single operations ', () => {
 describe('Session Service should work for multiple operations ', () => {
   const items = { name: 'John', family: 'Doe', info: { age: 16 } };
   const multipleKeyToGet = Object.keys(items);
-  ss.setMultiple(items);
+  seSt.setMultiple(items);
 
   it('getMultiple', () => {
-    const multiResult = ss.getMultiple(multipleKeyToGet);
-    const allResult = ss.getAll();
+    const multiResult = seSt.getMultiple(multipleKeyToGet);
+    const allResult = seSt.getAll();
 
     expect(multiResult).toStrictEqual(items);
     expect(allResult).toStrictEqual(items);
   });
 
   it('removeMultiple', () => {
-    ss.removeMultiple(multipleKeyToGet);
-    expect(ss.getAll()).toStrictEqual({});
+    seSt.removeMultiple(multipleKeyToGet);
+    expect(seSt.getAll()).toStrictEqual({});
   });
 
   it('removeAll', () => {
-    ss.removeAll();
-    expect(ss.getAll()).toStrictEqual({});
+    seSt.removeAll();
+    expect(seSt.getAll()).toStrictEqual({});
   });
-});
-
-//------------------------------------------------------------------
-//Todo: Enable this test if you want to test internals and you should make them public
-
-// describe("Session Service internal should work", () => {
-// 	const { checkPrimitive, checkJSON } = ls;
-//
-// 	it("checkPrimitive", () => {
-// 		expect(checkPrimitive(null)).toBe(true);
-// 		expect(checkPrimitive(true)).toBe(true);
-// 		expect(checkPrimitive("string")).toBe(true);
-// 		expect(checkPrimitive(7)).toBe(true);
-// 		expect(checkPrimitive(Symbol("id"))).toBe(true);
-// 		expect(checkPrimitive(() => {})).toBe(false);
-// 		expect(checkPrimitive({})).toBe(false);
-// 	});
-//
-// 	it("checkJSON", () => {
-// 		expect(checkJSON("random-string")).toBe(false);
-// 		expect(checkJSON(JSON.stringify({ key: "value" }))).toBe(true);
-// 	});
-// });
+});  
