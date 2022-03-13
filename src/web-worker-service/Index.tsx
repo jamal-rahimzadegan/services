@@ -4,7 +4,7 @@ import testWorkerFile from './web-worker-service/test-worker';
 
 let testWorker;
 
-export default function Home() {
+export default function Index() {
   const handleWorker = () => {
     testWorker = new WorkerService(testWorkerFile);
     testWorker.onmessage = (e) => {
