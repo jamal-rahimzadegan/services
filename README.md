@@ -1,5 +1,4 @@
-# services
-Customized services
+# Customized services to DRY your code
 
 - `API` &mdash;> A wrapper for working with Axios.
 - `Storage` &mdash;> Some helpers for `localStorage` (you can **save any data**).
